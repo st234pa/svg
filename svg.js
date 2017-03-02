@@ -61,7 +61,7 @@ var growCircle = function() {
 };
 var intervalID;
 var go = function() {
-    growCircle();
+    //growCircle();
     intervalID = window.setInterval(growCircle, 16);
 };
 
