@@ -40,35 +40,7 @@ var addNode = function(e) {
   var intervalID = window.setInterval(loopbkFxn, 16);
 */
 
-var myRad = 0;
-
-
-var growCircle = function() {
-    clearImg();
-    var circ = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circ.setAttribute("cx", parseInt(pic.getAttribute("width"))/2);
-    circ.setAttribute("cy", parseInt(pic.getAttribute("height"))/2);
-    if (parseInt(circ.getAttribute("r")) >= parseInt(pic.getAttribute("width"))/2) {
-        myRad -= 1;
-    }
-    else if (parseInt(circ.getAttribute("r")) <= 0) {
-        myRad += 1;
-    }
-    circ.setAttribute("r", myRad.toString());
-    circ.setAttribute("fill", "red");
-    circ.setAttribute("stroke", "black");
-    pic.appendChild(circ);
-};
-var intervalID;
-var go = function() {
-    //growCircle();
-    intervalID = window.setInterval(growCircle, 16);
-};
-
-var stopIt = function() {
-    clearInterval(intervalID);
-};
-
+var myRad = 20;
 var clearImg = function() {
     while (pic.lastChild) {
         pic.removeChild(pic.lastChild);
@@ -76,6 +48,37 @@ var clearImg = function() {
     prevX = 0;
     prevY = 0;
 };
+
+var dir = 1;
+var growCircle = function() {
+    clearImg();
+    var circ = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circ.setAttribute("cx", pic.getAttribute("width")/2);
+    circ.setAttribute("cy", pic.getAttribute("height")/2);
+    circ.setAttribute("r", myRad.toString());
+    circ.setAttribute("fill", "red");
+    circ.setAttribute("stroke", "black");
+    pic.appendChild(circ);
+    if (parseInt(circ.getAttribute("r")) >= parseInt(pic.getAttribute("width"))/2) {
+        dir = -1;
+    }
+    else if (parseInt(circ.getAttribute("r")) <= 0) {
+        dir = 1;
+    }
+    myRad += dir;
+    console.log("doon")
+};
+var intervalID;
+
+var go = function(e) {
+    intervalID = window.setInterval(growCircle, 16);
+};
+
+var stopIt = function() {
+    clearInterval(intervalID);
+};
+
+
 
 
 pic.addEventListener("click", go);
